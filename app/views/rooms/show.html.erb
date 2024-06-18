@@ -1,0 +1,29 @@
+<p style="color: green"><%= notice %></p>
+
+<%= turbo_stream_from @room %>
+
+<%= turbo_frame_tag "room" do %>
+<!--
+  <p>
+    <strong>Name:</strong>
+    <%#= @room.name %>
+  </p>
+-->
+  <%= render @room %>
+
+  <div>
+    <%= link_to "Edit this room", edit_room_path(@room) %> |
+    <%#= link_to "Back to rooms", rooms_path %>
+    <!-- 예전에는 아무것도 동작하지 않았는데 지금은 Content Missing! 표시 -->
+    <!-- 정확히는 잘 모르겠는데 뭔가 frame을 깬다고 함... -->
+    <%= link_to "Back to rooms", rooms_path, "data-turbo-frame": "_top" %>
+
+  </div>
+<% end %>
+
+<div id="messages">
+  <%= render @room.messages %>
+</div>
+
+<%#= link_to "New message", new_room_message_path(@room) %>
+<%= turbo_frame_tag "new_message", src: new_room_message_path(@room), target: "_top" %>
